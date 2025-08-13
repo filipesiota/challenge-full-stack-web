@@ -10,9 +10,9 @@
   "license": "ISC",
   "devDependencies": {
     "@rocketseat/eslint-config": "2.2.2",
-    "@types/node": "^24.2.1",
-    "eslint": "9.33.0",
-    "typescript": "^5.9.2",
+    "@types/node": "24.2.1",
+    "eslint": "8.57.1",
+    "typescript": "5.9.2",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
   }
