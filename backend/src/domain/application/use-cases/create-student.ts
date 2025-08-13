@@ -10,9 +10,12 @@ interface CreateStudentUseCaseProps {
   cpf: string
 }
 
-interface CreateStudentUseCaseResponse {
-  student: Student
-}
+type CreateStudentUseCaseResponse = Either<
+  ResourceAlreadyExistsError,
+  {
+    student: Student
+  }
+>
 
 export class CreateStudentUseCase {
   constructor(private readonly studentRepository: StudentRepository) {}
@@ -22,9 +25,7 @@ export class CreateStudentUseCase {
     email,
     enrollmentNumber,
     cpf,
-  }: CreateStudentUseCaseProps): Promise<
-    Either<ResourceAlreadyExistsError, CreateStudentUseCaseResponse>
-  > {
+  }: CreateStudentUseCaseProps): Promise<CreateStudentUseCaseResponse> {
     const studentWithSameEnrollmentNumber =
       await this.studentRepository.findByEnrollmentNumber(enrollmentNumber)
 
