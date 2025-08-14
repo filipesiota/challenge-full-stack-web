@@ -8,6 +8,22 @@ export class InMemoryStudentRepository implements StudentRepository {
     this.items.push(student)
   }
 
+  async update(student: Student): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === student.id)
+
+    this.items[itemIndex] = student
+  }
+
+  async findById(id: string): Promise<Student | null> {
+    const student = this.items.find((item) => item.id.toString() === id)
+
+    if (!student) {
+      return null
+    }
+
+    return student
+  }
+
   async findByEnrollmentNumber(
     enrollmentNumber: string,
   ): Promise<Student | null> {

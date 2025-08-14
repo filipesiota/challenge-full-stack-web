@@ -23,7 +23,8 @@ describe('Create Student', () => {
 
     expect(result.isRight()).toBe(true)
     if (!result.isRight()) return
-    expect(inMemoryStudentRepository.items.length).toBe(1)
-    expect(inMemoryStudentRepository.items[0]).toBe(result.value.student)
+
+    expect(inMemoryStudentRepository.items).toHaveLength(1)
+    expect(inMemoryStudentRepository.items[0]).toEqual(result.value.student)
   })
 })
