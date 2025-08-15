@@ -38,7 +38,7 @@ export class EditStudentUseCase {
     student.name = name
     student.email = email
 
-    await this.studentRepository.update(student)
+    await this.studentRepository.save(student)
 
     return right({
       student,

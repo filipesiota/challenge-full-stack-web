@@ -56,7 +56,9 @@ export class Student extends Entity<StudentProps> {
   }
 
   delete() {
+    if (this.props.deletedAt) return
     this.props.deletedAt = new Date()
+    this.touch()
   }
 
   static create(
