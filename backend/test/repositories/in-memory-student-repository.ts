@@ -1,3 +1,7 @@
+import {
+  PAGINATION_LIMIT,
+  PaginationParams,
+} from '@/core/repositories/pagination-params'
 import { StudentRepository } from '@/domain/application/repositories/student-repository'
 import { Student } from '@/domain/enterprise/entities/student'
 
@@ -46,5 +50,13 @@ export class InMemoryStudentRepository implements StudentRepository {
     }
 
     return student
+  }
+
+  async findMany({ page }: PaginationParams): Promise<Student[]> {
+    const students = this.items
+      .filter((item) => !item.deletedAt)
+      .slice((page - 1) * PAGINATION_LIMIT, page * PAGINATION_LIMIT)
+
+    return students
   }
 }
