@@ -26,6 +26,17 @@ export class CreateStudentUseCase {
     enrollmentNumber,
     cpf,
   }: CreateStudentUseCaseProps): Promise<CreateStudentUseCaseResponse> {
+    const studentWithSameEmail = await this.studentRepository.findByEmail(email)
+
+    if (studentWithSameEmail) {
+      return left(
+        new ResourceAlreadyExistsError('student', {
+          label: 'email',
+          value: email,
+        }),
+      )
+    }
+
     const studentWithSameEnrollmentNumber =
       await this.studentRepository.findByEnrollmentNumber(enrollmentNumber)
 

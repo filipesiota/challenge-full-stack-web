@@ -41,6 +41,20 @@ export class PrismaStudentRepository implements StudentRepository {
     return PrismaStudentMapper.toDomain(student)
   }
 
+  async findByEmail(email: string): Promise<Student | null> {
+    const student = await prisma.student.findUnique({
+      where: {
+        email,
+      },
+    })
+
+    if (!student) {
+      return null
+    }
+
+    return PrismaStudentMapper.toDomain(student)
+  }
+
   async findByEnrollmentNumber(
     enrollmentNumber: string,
   ): Promise<Student | null> {
