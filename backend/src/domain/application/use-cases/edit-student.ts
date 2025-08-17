@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { StudentRepository } from '../repositories/student-repository'
 import { Student } from '@/domain/enterprise/entities/student'
-import { ResourceNotFoundError } from '@/core/errors/generic/resource-not-found-error'
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
 
 interface EditStudentUseCaseProps {
   studentId: string

@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/test/*": ["./test/*"],
+      "@prisma/client": ["./generated/prisma"]
     },
     "types": [
       "vitest/globals"

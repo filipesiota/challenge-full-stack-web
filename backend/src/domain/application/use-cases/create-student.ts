@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either'
 import { StudentRepository } from '../repositories/student-repository'
 import { Student } from '@/domain/enterprise/entities/student'
-import { ResourceAlreadyExistsError } from '@/core/errors/generic/resource-already-exists-error'
+import { ResourceAlreadyExistsError } from '@/core/errors/resource-already-exists-error'
 
 interface CreateStudentUseCaseProps {
   name: string

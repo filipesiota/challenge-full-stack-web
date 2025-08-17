@@ -8,7 +8,7 @@ export interface StudentProps {
   enrollmentNumber: string
   cpf: string
   createdAt: Date
-  updatedAt?: Date | null
+  updatedAt: Date
   deletedAt?: Date | null
 }
 
@@ -62,13 +62,14 @@ export class Student extends Entity<StudentProps> {
   }
 
   static create(
-    props: Optional<StudentProps, 'createdAt'>,
+    props: Optional<StudentProps, 'createdAt' | 'updatedAt'>,
     id?: UniqueEntityId,
   ) {
     const student = new Student(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        updatedAt: props.updatedAt ?? new Date(),
       },
       id,
     )

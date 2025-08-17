@@ -1,2 +1,10 @@
+# libs
 node_modules
+
+# output files
 build
+
+# environment variables
+.env
+
+/generated/prisma

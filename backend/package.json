@@ -2,17 +2,32 @@
   "name": "backend",
   "version": "1.0.0",
   "scripts": {
+    "start:dev": "tsx watch src/infra/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix"
   },
   "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "11.1.0",
+    "@prisma/client": "6.14.0",
+    "dotenv": "17.2.1",
+    "fastify": "5.5.0",
+    "fastify-type-provider-zod": "5.0.3",
+    "validation-br": "1.5.2",
+    "zod": "4.0.17"
+  },
   "devDependencies": {
     "@faker-js/faker": "9.9.0",
     "@rocketseat/eslint-config": "2.2.2",
     "@types/node": "24.2.1",
     "eslint": "8.57.1",
+    "prisma": "6.14.0",
+    "tsup": "8.5.0",
+    "tsx": "4.20.4",
     "typescript": "5.9.2",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
