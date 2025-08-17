@@ -4,7 +4,7 @@ import {
 } from '@/core/repositories/pagination-params'
 import { StudentRepository } from '@/domain/application/repositories/student-repository'
 import { Student } from '@/domain/enterprise/entities/student'
-import { prisma } from '../../infra/lib/prisma'
+import { prisma } from '@/infra/lib/prisma'
 import { PrismaStudentMapper } from '../mappers/prisma-student-mapper'
 
 export class PrismaStudentRepository implements StudentRepository {

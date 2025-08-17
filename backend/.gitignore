@@ -3,8 +3,7 @@ node_modules
 
 # output files
 build
+/generated/prisma
 
 # environment variables
 .env
-
-/generated/prisma
