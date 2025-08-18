@@ -12,6 +12,9 @@ import { makeEditStudentUseCase } from '@/infra/factories/make-edit-student-use-
 import { makeDeleteStudentUseCase } from '@/infra/factories/make-delete-student-use-case'
 import { DeleteStudentController } from './delete-student-controller'
 import { deleteStudentParamsSchema } from '../../schemas/delete-student'
+import { FetchStudentsController } from './fetch-students-controller'
+import { makeFetchStudentsUseCase } from '@/infra/factories/make-fetch-students-use-case'
+import { fetchStudentsQueryStringSchema } from '../../schemas/fetch-students'
 
 export async function studentsRoutes(app: FastifyInstance) {
   const createStudentController = new CreateStudentController(
@@ -22,6 +25,9 @@ export async function studentsRoutes(app: FastifyInstance) {
   )
   const deleteStudentController = new DeleteStudentController(
     makeDeleteStudentUseCase(),
+  )
+  const fetchStudentsController = new FetchStudentsController(
+    makeFetchStudentsUseCase(),
   )
 
   app.post(
@@ -53,5 +59,15 @@ export async function studentsRoutes(app: FastifyInstance) {
       },
     },
     deleteStudentController.handle.bind(deleteStudentController),
+  )
+
+  app.get(
+    '/students',
+    {
+      schema: {
+        querystring: fetchStudentsQueryStringSchema,
+      },
+    },
+    fetchStudentsController.handle.bind(fetchStudentsController),
   )
 }

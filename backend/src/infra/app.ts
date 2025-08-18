@@ -10,6 +10,7 @@ import { env } from '@/infra/env'
 import { studentsRoutes } from './http/controllers/students/routes'
 import { ConflictException } from './http/exceptions/conflict-exception'
 import { NotFoundException } from './http/exceptions/not-found-exception'
+import { InternalServerErrorException } from './http/exceptions/internal-server-error-exception'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -43,6 +44,12 @@ app.setErrorHandler((error, _, reply) => {
       message: error.message,
       resource: error.resource,
       identifier: error.identifier,
+    })
+  }
+
+  if (error instanceof InternalServerErrorException) {
+    return reply.status(500).send({
+      message: 'Internal server error',
     })
   }
 
