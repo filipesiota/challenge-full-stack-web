@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/either'
 import { StudentRepository } from '../repositories/student-repository'
 import { Student } from '@/domain/enterprise/entities/student'
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found-error'
+import { ResourceAlreadyExistsError } from '@/core/errors/resource-already-exists-error'
 
 interface EditStudentUseCaseProps {
   studentId: string
@@ -10,7 +11,7 @@ interface EditStudentUseCaseProps {
 }
 
 type EditStudentUseCaseResponse = Either<
-  ResourceNotFoundError,
+  ResourceNotFoundError | ResourceAlreadyExistsError,
   {
     student: Student
   }
@@ -33,6 +34,20 @@ export class EditStudentUseCase {
           value: studentId,
         }),
       )
+    }
+
+    if (student.email !== email) {
+      const studentWithSameEmail =
+        await this.studentRepository.findByEmail(email)
+
+      if (studentWithSameEmail) {
+        return left(
+          new ResourceAlreadyExistsError('student', {
+            label: 'email',
+            value: email,
+          }),
+        )
+      }
     }
 
     student.name = name

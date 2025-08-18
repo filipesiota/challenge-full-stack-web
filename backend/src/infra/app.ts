@@ -7,8 +7,9 @@ import {
 } from 'fastify-type-provider-zod'
 
 import { env } from '@/infra/env'
-import { ConflictException } from './http/exceptions/conflict-exception'
 import { studentsRoutes } from './http/controllers/students/routes'
+import { ConflictException } from './http/exceptions/conflict-exception'
+import { NotFoundException } from './http/exceptions/not-found-exception'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -31,6 +32,14 @@ app.setErrorHandler((error, _, reply) => {
 
   if (error instanceof ConflictException) {
     return reply.status(409).send({
+      message: error.message,
+      resource: error.resource,
+      identifier: error.identifier,
+    })
+  }
+
+  if (error instanceof NotFoundException) {
+    return reply.status(404).send({
       message: error.message,
       resource: error.resource,
       identifier: error.identifier,

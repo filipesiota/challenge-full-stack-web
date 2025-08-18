@@ -24,14 +24,10 @@ export class CreateStudentController {
     if (result.isLeft()) {
       const error = result.value
 
-      throw new ConflictException(error.resource, error.identifier)
+      throw new ConflictException(error)
     }
 
     const { student } = result.value
-
-    console.log({
-      student: StudentPresenter.toHTTP(student),
-    })
 
     return reply.status(201).send({
       student: StudentPresenter.toHTTP(student),
