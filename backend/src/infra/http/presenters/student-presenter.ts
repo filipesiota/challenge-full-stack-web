@@ -8,6 +8,7 @@ export class StudentPresenter {
       email: student.email,
       enrollmentNumber: student.enrollmentNumber,
       cpf: student.cpf,
+      isActive: student.deletedAt === null,
     }
   }
 }

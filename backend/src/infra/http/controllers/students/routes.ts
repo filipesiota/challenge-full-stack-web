@@ -9,6 +9,9 @@ import {
 } from '../../schemas/edit-student'
 import { EditStudentController } from './edit-student-controller'
 import { makeEditStudentUseCase } from '@/infra/factories/make-edit-student-use-case'
+import { makeDeleteStudentUseCase } from '@/infra/factories/make-delete-student-use-case'
+import { DeleteStudentController } from './delete-student-controller'
+import { deleteStudentParamsSchema } from '../../schemas/delete-student'
 
 export async function studentsRoutes(app: FastifyInstance) {
   const createStudentController = new CreateStudentController(
@@ -16,6 +19,9 @@ export async function studentsRoutes(app: FastifyInstance) {
   )
   const editStudentController = new EditStudentController(
     makeEditStudentUseCase(),
+  )
+  const deleteStudentController = new DeleteStudentController(
+    makeDeleteStudentUseCase(),
   )
 
   app.post(
@@ -37,5 +43,15 @@ export async function studentsRoutes(app: FastifyInstance) {
       },
     },
     editStudentController.handle.bind(editStudentController),
+  )
+
+  app.delete(
+    '/students/:studentId',
+    {
+      schema: {
+        params: deleteStudentParamsSchema,
+      },
+    },
+    deleteStudentController.handle.bind(deleteStudentController),
   )
 }
